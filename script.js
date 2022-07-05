@@ -4,6 +4,7 @@ const add = document.querySelector('.book_add');
 const books_list = document.querySelector('.list');
 
 
+
 function Book(book_id, title, author) {
   this.book_id = book_id;
   this.title = title;
@@ -24,34 +25,38 @@ add.addEventListener('click', (event) => {
 });
 
 function list() {
-  const eachBook = document.createElement('div');
-  const book_id = books.length;
-  eachBook.classList.add(book_id);
-  const title_p = document.createElement('p');
-  title_p.textContent = title.value;
-  const author_p = document.createElement('p');
-  author_p.textContent = author.value;
-  const removeBtn = document.createElement('button');
-  removeBtn.textContent = 'Remove';
-  removeBtn.classList.add(book_id);
-  removeBtn.classList.add('remove');
-  const line = document.createElement('hr');
+  books_list.innerHTML= '';
+  books.forEach ((book) => {
 
-  eachBook.appendChild(title_p);
-  eachBook.appendChild(author_p);
-  eachBook.appendChild(removeBtn);
-  eachBook.appendChild(line);
-  books_list.appendChild(eachBook);
+    const eachBook = document.createElement('div');
+    const book_id = book.book_id;
+    eachBook.classList.add(book_id);
+
+    const title_p = document.createElement('p');
+    title_p.textContent = book.title;
+    const author_p = document.createElement('p');
+    author_p.textContent = book.author;
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.classList.add(book_id);
+    removeBtn.classList.add('remove');
+    const line = document.createElement('hr');
+  
+    eachBook.appendChild(title_p);
+    eachBook.appendChild(author_p);
+    eachBook.appendChild(removeBtn);
+    eachBook.appendChild(line);
+    books_list.appendChild(eachBook);
+
+
+  })
+  
 }
 
 books_list.addEventListener('click', (event) => {
   if (event.target.classList.contains('remove')) {
-    console.log('should removed');
-    const remove = document.querySelectorAll('.remove');
-    remove.forEach( ()=> {
-      console.log(remove.classList);
-    console.log(typeof(remove.classList));
-    })
-    
+    const remove = document.querySelector('.remove');
+    remove.parentElement.remove();
+    console.log(remove.classList);
   }
 });
