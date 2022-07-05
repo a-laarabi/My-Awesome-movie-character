@@ -55,8 +55,9 @@ function list() {
 
 books_list.addEventListener('click', (event) => {
   if (event.target.classList.contains('remove')) {
+    
     const remove = document.querySelector('.remove');
     remove.parentElement.remove();
-    console.log(remove.classList);
+    console.log(remove.classList[0]);
   }
 });
