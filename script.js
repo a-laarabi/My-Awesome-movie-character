@@ -10,13 +10,14 @@ function Book(book_id, title, author) {
   this.author = author;
 }
 
-const books = [];
+const books = JSON.parse(localStorage.getItem('form')) ||[];
 
 add.addEventListener('click', (event) => {
   event.preventDefault();
-  const book_id = books.length + 1;
+  const book_id = books.length;
   const newBook = new Book(book_id, title.value, author.value);
   books.push(newBook);
+  localStorage.setItem('form', JSON.stringify(books));
   list();
   title.value = '';
   author.value = '';
@@ -24,7 +25,7 @@ add.addEventListener('click', (event) => {
 
 function list() {
   const eachBook = document.createElement('div');
-  const book_id = books.length + 1;
+  const book_id = books.length;
   eachBook.classList.add(book_id);
   const title_p = document.createElement('p');
   title_p.textContent = title.value;
@@ -33,6 +34,7 @@ function list() {
   const removeBtn = document.createElement('button');
   removeBtn.textContent = 'Remove';
   removeBtn.classList.add(book_id);
+  removeBtn.classList.add('remove');
   const line = document.createElement('hr');
 
   eachBook.appendChild(title_p);
@@ -40,7 +42,16 @@ function list() {
   eachBook.appendChild(removeBtn);
   eachBook.appendChild(line);
   books_list.appendChild(eachBook);
-
 }
 
-console.log(books);
+books_list.addEventListener('click', (event) => {
+  if (event.target.classList.contains('remove')) {
+    console.log('should removed');
+    const remove = document.querySelectorAll('.remove');
+    remove.forEach( ()=> {
+      console.log(remove.classList);
+    console.log(typeof(remove.classList));
+    })
+    
+  }
+});
